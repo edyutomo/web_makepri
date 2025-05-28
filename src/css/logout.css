@@ -1,0 +1,63 @@
+/* Container utama */
+.logout-container {
+  padding: 20px;
+  margin-left: 250px;
+  text-align: center;
+}
+
+/* Kotak Logout */
+.logout-box {
+  padding: 25px;
+  background: #e0e0e0;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 400px;
+  margin: 0 auto;
+  
+}
+
+/* Judul */
+.logout-title {
+  margin-bottom: 20px;
+  color: #20a3fa;
+}
+
+/* Teks */
+.logout-text {
+  margin-bottom: 20px;
+}
+
+/* Tombol */
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.logout-button {
+  padding: 10px 20px;
+  background: #3698f4;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.logout-button:hover {
+  background: #52eeee;
+}
+
+.cancel-button {
+  padding: 10px 20px;
+  background: #2be1e7;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.cancel-button:hover {
+  background: #249bfc;
+}

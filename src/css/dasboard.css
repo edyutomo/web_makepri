@@ -1,0 +1,49 @@
+/* Container utama */
+.dashboard-container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+background-image: url("../assets/background-image.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+/* Konten Dashboard */
+.dashboard-content {
+  margin-left: 250px;
+  padding: 20px;
+  width: calc(100% - 250px);
+  background-color: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+}
+
+/* Ringkasan Keuangan */
+.financial-summary {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.financial-card {
+  padding: 10px;
+  color: #fff;
+  border-radius: 5px;
+  text-align: center;
+  width: 150px;
+}
+
+.financial-card.income {
+  background: #4CAF50;
+}
+
+.financial-card.expense {
+  background: #0081D1;
+}
+
+/* Grafik */
+.chart-container {
+  margin-top: 20px;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}

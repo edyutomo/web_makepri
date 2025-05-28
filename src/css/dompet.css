@@ -1,0 +1,61 @@
+/* Container utama */
+.dompet-container {
+  padding: 0px;
+  margin-left: 250px;
+}
+
+/* Judul */
+.dompet-title {
+  color: #ffffff;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+/* List Dompet */
+.dompet-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+/* Kartu Dompet */
+.dompet-card {
+  padding: 20px;
+  background: #ffffff;
+  border: 1px solid #919191;
+  border-radius: 8px;
+  width: 200px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  text-align: center;
+}
+
+.dompet-card:hover {
+  box-shadow: 0 4px 8px rgba(33, 150, 243, 0.5);
+  border: 1px solid #2196F3;
+  transform: translateY(-2px);
+}
+
+/* Tombol Tambah Dompet */
+.dompet-add {
+  padding: 20px;
+  background: #2196F3;
+  color: #ffffff;
+  border-radius: 8px;
+  width: 200px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.dompet-add:hover {
+  background: #1976D2;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(33, 150, 243, 0.5);
+}
+
+/* Ikon Tambah */
+.dompet-add-icon {
+  font-size: 24px;
+}
