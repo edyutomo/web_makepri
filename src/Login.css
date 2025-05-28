@@ -1,0 +1,70 @@
+/* Container utama agar konten berada di tengah */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Penuh tinggi layar */
+}
+
+/* Box login */
+.login-box {
+  padding: 20px;
+  background: #f0f0f0;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 400px;
+  text-align: center; /* Semua teks dan elemen di tengah */
+}
+
+/* Judul */
+.login-title {
+  margin-bottom: 20px;
+  color: #2196F3;
+}
+
+/* Form input */
+.form-group {
+  margin-bottom: 20px;
+  text-align: left; /* Label tetap rata kiri */
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.form-group input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+}
+
+/* Tombol Login */
+.login-button {
+  padding: 10px 20px;
+  background: #2196F3;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  display: block;
+  margin: 0 auto; /* Tengah */
+}
+
+.login-button:hover {
+  background: #1976D2;
+}
+
+/* Link */
+.link {
+  display: block;
+  margin-top: 10px;
+  text-decoration: none;
+  color: #2196F3;
+}
+
+.link:hover {
+  color: #1976D2;
+}
