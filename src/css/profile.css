@@ -48,8 +48,11 @@
   text-align: left;
 }*/
 
-.form-group {
+.form-group{
   margin-bottom: 20px;
+  display: flex;
+  flex-direction: column; /* Set agar label tetap di atas input */
+  align-items: flex-start;
 }
 
 .form-group label {
@@ -70,7 +73,7 @@
   box-shadow: 0 0 10px rgba(20, 220, 255, 0.582);
 }
 
-.form-group input:hover {
+.form-group1 input:hover {
   box-shadow: 0 0 10px rgba(41, 92, 134, 0.5);
 }
 

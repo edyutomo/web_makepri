@@ -25,7 +25,6 @@ function Dashboard() {
 
     return (
         <div className="dashboard-container">
-            <Sidebar />
             <div className="dashboard-content">
                 <h2>Dashboard</h2>
                 <p>Selamat datang di aplikasi keuanganmu!</p>

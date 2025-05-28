@@ -1,6 +1,6 @@
-// src/Register.jsx
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import "./Register.css"; // Import file CSS terpisah
 
 function Register() {
     const navigate = useNavigate();
@@ -23,67 +23,62 @@ function Register() {
             return;
         }
 
-        // Simulasi proses registrasi
         console.log("Data pendaftaran:", form);
         alert("Registrasi berhasil! Silakan login.");
         navigate("/");
     };
 
     return (
-        <div style={{ padding: "20px", marginLeft: "250px" }}>
-        <div>
-            <h2>Halaman Daftar</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Username:</label><br />
-                    <input
-                        type="text"
-                        name="username"
-                        value={form.username}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <br />
-                <div>
-                    <label>Email:</label><br />
-                    <input
-                        type="email"
-                        name="email"
-                        value={form.email}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <br />
-                <div>
-                    <label>Password:</label><br />
-                    <input
-                        type="password"
-                        name="password"
-                        value={form.password}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <br />
-                <div>
-                    <label>Konfirmasi Password:</label><br />
-                    <input
-                        type="password"
-                        name="confirmPassword"
-                        value={form.confirmPassword}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <br />
-                <button type="submit">Daftar</button>
-            </form>
-
-            <br />
-            <p>Sudah punya akun? <Link to="/">Login di sini</Link></p>
-        </div>
+        <div className="register-container">
+            <div className="register-box">
+                <h2 className="register-title">Halaman Daftar</h2>
+                <form onSubmit={handleSubmit} className="register-form">
+                    <div className="form-group">
+                        <label>Username:</label>
+                        <input
+                            type="text"
+                            name="username"
+                            value={form.username}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label>Email:</label>
+                        <input
+                            type="email"
+                            name="email"
+                            value={form.email}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label>Password:</label>
+                        <input
+                            type="password"
+                            name="password"
+                            value={form.password}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label>Konfirmasi Password:</label>
+                        <input
+                            type="password"
+                            name="confirmPassword"
+                            value={form.confirmPassword}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                    <button type="submit" className="register-button">Daftar</button>
+                </form>
+                <p className="register-link">
+                    Sudah punya akun? <Link to="/">Login di sini</Link>
+                </p>
+            </div>
         </div>
     );
 }
