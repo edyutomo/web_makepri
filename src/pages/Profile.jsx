@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "../css/Profile.css"; // Import file CSS terpisah
+import makepriImage from "../assets/makepri.png"; // Impor gambar
 
 function Profile() {
   const [profile, setProfile] = useState({
@@ -16,57 +18,27 @@ function Profile() {
   };
 
   return (
-    <div style={{ padding: "20px", marginLeft: "250px", textAlign: "center" }}>
-      <div
-        style={{
-          padding: "20px",
-          background: "#f0f0f0",
-          borderRadius: "8px",
-          boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
-          width: "400px",
-          margin: "0 auto",
-        }}
-      >
-        <h2 style={{ marginBottom: "20px", color: "#2196F3" }}>Profil Pengguna</h2>
-        <div style={{ marginBottom: "20px" }}>
-          <img
-            src={profile.fotoProfile}
-            alt="Foto Profile"
-            style={{
-              width: "150px",
-              height: "150px",
-              borderRadius: "50%",
-              objectFit: "cover",
-              transition: "all 0.3s ease",
-              boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
-            }}
-            onMouseOver={(e) => (e.target.style.boxShadow = "0 0 10px rgba(33, 150, 243, 0.5)")}
-            onMouseOut={(e) => (e.target.style.boxShadow = "0 0 10px rgba(0, 0, 0, 0.1)")}
-          />
+    <div className="profile-container">
+      <div className="profile-box">
+        <h2 className="profile-title">Profil Pengguna</h2>
+        <div className="profile-image-container">
+          <img src={makepriImage} alt="Foto Profile" className="profile-image" />
         </div>
-        <div style={{ marginBottom: "20px" }}>
-          <strong>Username:</strong> {profile.username}
-        </div>
-        <div style={{ marginBottom: "20px" }}>
-          <strong>Email:</strong> {profile.email}
-        </div>
-        <div style={{ marginBottom: "20px" }}>
-          <strong>Saldo:</strong> Rp {profile.saldo.toLocaleString()}
-        </div>
-        <button
-          style={{
-            padding: "10px 20px",
-            background: "#2196F3",
-            color: "#fff",
-            border: "none",
-            borderRadius: "4px",
-            cursor: "pointer",
-            transition: "all 0.3s ease",
-          }}
-          onMouseOver={(e) => (e.target.style.background = "#1976D2")}
-          onMouseOut={(e) => (e.target.style.background = "#2196F3")}
-          onClick={handleEditProfile}
-        >
+        <form className="profile-form">
+          <div className="form-group">
+            <label>Username:</label>
+            <input type="text" value={profile.username} readOnly />
+          </div>
+          <div className="form-group">
+            <label>Email:</label>
+            <input type="email" value={profile.email} readOnly />
+          </div>
+          <div className="form-group">
+            <label>Saldo:</label>
+            <input type="text" value={`Rp ${profile.saldo.toLocaleString()}`} readOnly />
+          </div>
+        </form>
+        <button className="edit-profile-button" onClick={handleEditProfile}>
           Edit Profil
         </button>
       </div>
