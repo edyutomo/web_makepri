@@ -33,7 +33,7 @@ function Login() {
             <div className="login-right">
                 <h2 className="login-title">MASUK</h2>
                 <form onSubmit={handleSubmit}>
-                    <div className="form-group">
+                    <div className="form-grouplog">
                         <input
                             type="email"
                             placeholder="Email"
@@ -42,7 +42,7 @@ function Login() {
                             required
                         />
                     </div>
-                    <div className="form-group password-group">
+                    <div className="form-grouplog password-group">
                         <input
                             type={showPassword ? "text" : "password"}
                             placeholder="Sandi"
@@ -51,7 +51,7 @@ function Login() {
                             required
                         />
                         <span
-                            className="toggle-password"
+                            className="toggle-passwordlog"
                             onClick={() => setShowPassword(!showPassword)}
                         >
                             👁️

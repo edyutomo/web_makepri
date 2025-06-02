@@ -1,5 +1,3 @@
-
-
 body {
     margin: 0;
     font-family: Arial, sans-serif;
@@ -10,10 +8,12 @@ body {
     height: 100vh;
     background-color: #005b8f;
     color: white;
+    flex-wrap: wrap;
 }
 
-.login-left h3,h2 {
- font-size: 25px;
+.login-left h3,
+h2 {
+    font-size: 2vw;
 }
 
 /* KIRI */
@@ -23,20 +23,19 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 200px;
+    padding: 5vw;
     text-align: center;
-
 }
 
 .logo-circle {
-    width: 300px;
-    height: 300px;
+    width: 20vw;
+    height: 20vw;
     background-color: white;
     border-radius: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 20px;
+    margin-bottom: 2vw;
 }
 
 .logo-content {
@@ -45,23 +44,23 @@ body {
 }
 
 .logo-symbol {
-    font-size: 36px;
+    font-size: 3vw;
     font-weight: bold;
 }
 
 .logo-text {
     font-weight: bold;
-    font-size: 24px;
-    letter-spacing: 2px;
+    font-size: 2vw;
+    letter-spacing: 0.2vw;
 }
 
 /* KANAN */
 .login-right {
     flex: 1;
     background-color: #2196f3;
-    border-radius: 20px;
-    margin: 250px 300px;
-    padding: 40px;
+    border-radius: 2vw;
+    margin: 5vw;
+    padding: 2vw;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -70,56 +69,55 @@ body {
 
 .login-title {
     text-align: center;
-    margin-bottom: 50px;
-    font-size: 24px;
+    margin-bottom: 2vw;
+    font-size: 2vw;
 }
 
-.form-group {
+.form-grouplog {
     display: flex;
     justify-content: center;
-    margin-bottom: 20px;
+    margin-bottom: 2vw;
 }
 
-.form-group input {
-    padding: 10px 30px;
+.form-grouplog input {
+    padding: 1vw 2vw;
     border: none;
     width: 80%;
-    border-radius: 10px;
-    font-size: 16px;
-    margin-bottom: 10px;
+    border-radius: 1vw;
+    font-size: 1.5vw;
+    margin-bottom: 1vw;
 }
 
-.password-group {
+.password-grouplog {
     display: flex;
     align-items: center;
     position: relative;
 }
 
-.toggle-password {
+.toggle-passwordlog {
     position: absolute;
-    right: 50px;
+    right: 10%;
+    top: 50%;
+    transform: translateY(-50%);
     cursor: pointer;
     color: #333;
-    user-select: none;
-    top: 37%;
-    left: 90%;
-    transform: translateY(-50%);
+    font-size: 1.5vw;
 }
 
 .login-button {
-    padding: 10px;
-    width: 25%;
+    padding: 1vw 2vw;
+    width: 30%;
     display: block;
     margin: 0 auto;
     background-color: rgb(255, 255, 255);
     color: #000000;
     border: none;
-    border-radius: 10px;
+    border-radius: 1vw;
     font-weight: bold;
     cursor: pointer;
-    font-size: 16px;
-    margin-top: 10px;
-    margin-bottom: 20px;
+    font-size: 1.5vw;
+    margin-top: 1vw;
+    margin-bottom: 2vw;
 }
 
 .login-button:hover {
@@ -128,17 +126,29 @@ body {
 
 .login-links {
     text-align: center;
-    margin-top: 15px;
+    margin-top: 1vw;
 }
 
 .login-links a {
     display: block;
     color: rgb(255, 255, 255);
     text-decoration: underline;
-    margin-top: 5px;
+    margin-top: 0.5vw;
 }
 
 .login-links a:hover {
     color: #000000;
 }
 
+/* Tambahkan media query untuk ukuran layar kecil */
+@media only screen and (max-width: 768px) {
+    .login-wrapper {
+        flex-direction: column;
+    }
+    .login-left {
+        padding: 10vw;
+    }
+    .login-right {
+        margin: 5vw 0;
+    }
+}
