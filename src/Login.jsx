@@ -6,15 +6,25 @@ function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
+    const [alertVisible, setAlertVisible] = useState(false);
+    const [alertMessage, setAlertMessage] = useState("");
     const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
         if (email === "admin@gmail.com" && password === "12345678") {
-            alert("Login sukses!");
-            navigate("/dashboard");
+            setAlertMessage("Login sukses!");
+            setAlertVisible(true);
+            setTimeout(() => {
+                setAlertVisible(false);
+                navigate("/dashboard");
+            }, 2000);
         } else {
-            alert("Email atau password salah.");
+            setAlertMessage("Email atau Sandi salah!!");
+            setAlertVisible(true);
+            setTimeout(() => {
+                setAlertVisible(false);
+            }, 2000);
         }
     };
 
@@ -32,6 +42,11 @@ function Login() {
             </div>
             <div className="login-right">
                 <h2 className="login-title">MASUK</h2>
+                {alertVisible && (
+                    <div className="alert-popup">
+                        <p>{alertMessage}</p>
+                    </div>
+                )}
                 <form onSubmit={handleSubmit}>
                     <div className="form-grouplog">
                         <input
