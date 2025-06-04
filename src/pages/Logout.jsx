@@ -1,10 +1,14 @@
 import { useNavigate } from "react-router-dom";
-import "../css/logout.css"; // Import file CSS terpisah
+import "../css/logout.css";
 
 function Logout() {
   const navigate = useNavigate();
 
   const handleLogout = () => {
+    // Hapus token dan info user dari localStorage (jika disimpan di sana)
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+
     alert("Anda telah logout!");
     navigate("/login");
   };
