@@ -65,7 +65,7 @@ function EditProfile() {
     payload.password_lama = passwordLama; // Jika backend butuh password lama
   }
 
-  fetch("http://apitugas3.xyz/api/user", {
+  fetch("https://apitugas3.xyz/api/user", {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
