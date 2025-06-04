@@ -10,23 +10,43 @@ function Login() {
     const [alertMessage, setAlertMessage] = useState("");
     const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (email === "admin@gmail.com" && password === "12345678") {
+    const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+        const response = await fetch("https://apitugas3.xyz/api/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+            },
+            body: JSON.stringify({ email, password }),
+        });
+
+        const result = await response.json();
+
+        if (response.ok && result.status) {
+            // Simpan token & data user
+            localStorage.setItem("token", result.token);
+            localStorage.setItem("user", JSON.stringify(result.user));
+
             setAlertMessage("Login sukses!");
             setAlertVisible(true);
             setTimeout(() => {
                 setAlertVisible(false);
                 navigate("/dashboard");
-            }, 2000);
+            }, 1500);
         } else {
-            setAlertMessage("Email atau Sandi salah!!");
+            setAlertMessage(result.message || "Login gagal");
             setAlertVisible(true);
-            setTimeout(() => {
-                setAlertVisible(false);
-            }, 2000);
+            setTimeout(() => setAlertVisible(false), 2000);
         }
-    };
+    } catch (error) {
+        setAlertMessage("Terjadi kesalahan jaringan.");
+        setAlertVisible(true);
+        setTimeout(() => setAlertVisible(false), 2000);
+    }
+};
 
     return (
         <div className="login-wrapper">

@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "./Register.css"; // Import file CSS terpisah
+import "./Register.css";
 
 function Register() {
     const navigate = useNavigate();
     const [form, setForm] = useState({
-        username: "",
+        name: "",
         email: "",
         password: "",
         confirmPassword: "",
@@ -15,7 +15,7 @@ function Register() {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (form.password !== form.confirmPassword) {
@@ -23,9 +23,32 @@ function Register() {
             return;
         }
 
-        console.log("Data pendaftaran:", form);
-        alert("Registrasi berhasil! Silakan login.");
-        navigate("/");
+        try {
+            const response = await fetch("https://apitugas3.xyz/api/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                },
+                body: JSON.stringify({
+                    name: form.name,
+                    email: form.email,
+                    password: form.password,
+                }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                alert("Registrasi berhasil! Silakan login.");
+                navigate("/");
+            } else {
+                alert(data.message || "Terjadi kesalahan saat registrasi.");
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            alert("Gagal terhubung ke server.");
+        }
     };
 
     return (
@@ -34,11 +57,11 @@ function Register() {
                 <h2 className="register-title">Halaman Daftar</h2>
                 <form onSubmit={handleSubmit} className="register-form">
                     <div className="form-group">
-                        <label>Username:</label>
+                        <label>Nama:</label>
                         <input
                             type="text"
-                            name="username"
-                            value={form.username}
+                            name="name"
+                            value={form.name}
                             onChange={handleChange}
                             required
                         />
