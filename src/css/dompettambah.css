@@ -1,57 +1,66 @@
 /* Container utama */
 .dompet-tambah-container {
-  padding: 20px;
-  margin-left: 250px;
+    padding: 20px;
+    margin-left: 250px;
+}
+
+.dompet-tambah-container::before {
+    content: "";
+    background: url("../assets/back.png") center no-repeat;
+    opacity: 0.3;
+    background-size: 800px 800px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
 }
 
 /* Kotak Tambah Dompet */
 .dompet-tambah-box {
-  padding: 20px;
-  background: #d8d8d8;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 155, 160, 0.616);
-  
+    padding: 20px;
+    background: #d8d8d8;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 155, 160, 0.616);
 }
 
 /* Judul */
 .dompet-tambah-title {
-  margin-bottom: 20px;
-  color: #0081D1;
-  text-align: center;
+    margin-bottom: 20px;
+    color: #0081d1;
+    text-align: center;
 }
 
 /* Form */
 .form-group {
-  margin-bottom: 20px;
-  
+    margin-bottom: 20px;
 }
 
 .form-group label {
-  display: block;
-  margin-bottom: 10px;
+    display: block;
+    margin-bottom: 10px;
 }
 
 .form-group input {
-  padding: 10px;
-  border: 1px solid #4adbff;
-  border-radius: 4px;
-  width: 95%;
+    padding: 10px;
+    border: 1px solid #4adbff;
+    border-radius: 4px;
+    width: 95%;
 }
-
 
 /* Tombol Simpan */
 .dompet-tambah-button {
-    
-  padding: 10px 20px;
-  background: #0081D1;
-  color: #ffffff;
-  border: rgb(0, 0, 0);
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-  text-align: center;
+    padding: 10px 20px;
+    background: #0081d1;
+    color: #ffffff;
+    border: rgb(0, 0, 0);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    text-align: center;
 }
 
 .dompet-tambah-button:hover {
-  background: #50b0ff;
+    background: #50b0ff;
 }

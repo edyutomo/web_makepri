@@ -1,42 +1,55 @@
 /* Container utama */
 .profile-container {
-  padding: 20px;
-  margin-left: 250px;
-  text-align: center;
+    padding: 20px;
+    margin-left: 250px;
+    text-align: center;
+}
+
+.profile-container::before {
+    content: "";
+    background: url("../assets/back.png") center no-repeat;
+    opacity: 0.3;
+    background-size: 800px 800px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
 }
 
 /* Kotak Profil */
 .profile-box {
-  padding: 20px;
-  background: #f0f0f0;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  width: 400px;
-  margin: 0 auto;
+    padding: 20px;
+    background: #f0f0f0;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    margin: 0 auto;
 }
 
 /* Judul */
 .profile-title {
-  margin-bottom: 20px;
-  color: #2196F3;
+    margin-bottom: 20px;
+    color: #2196f3;
 }
 
 /* Foto Profil */
 .profile-image-container {
-  margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 
 .profile-image {
-  width: 150px;
-  height: 150px;
-  border-radius: 5%;
-  object-fit: cover;
-  transition: all 0.3s ease;
-  box-shadow: 0 0 10px rgba(20, 220, 255, 0.582);
+    width: 150px;
+    height: 150px;
+    border-radius: 5%;
+    object-fit: cover;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(20, 220, 255, 0.582);
 }
 
 .profile-image:hover {
-  box-shadow: 0 0 10px rgba(41, 92, 134, 0.5);
+    box-shadow: 0 0 10px rgba(41, 92, 134, 0.5);
 }
 
 /* Form Profil 
@@ -48,51 +61,50 @@
   text-align: left;
 }*/
 
-.form-group{
-  margin-bottom: 20px;
-  display: flex;
-  flex-direction: column; /* Set agar label tetap di atas input */
-  align-items: flex-start;
+.form-group {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column; /* Set agar label tetap di atas input */
+    align-items: flex-start;
 }
 
 .form-group label {
-  display: block;
-  font-weight: bold;
-  color: #000000;
-  margin-bottom: 5px;
-  
+    display: block;
+    font-weight: bold;
+    color: #000000;
+    margin-bottom: 5px;
 }
 
 .form-group input {
-  width: 95%;
-  padding: 10px;
-  border: 1px solid #00eeff;
-  border-radius: 4px;
-  background: #ffffff;
-  cursor: not-allowed;
-  box-shadow: 0 0 10px rgba(20, 220, 255, 0.582);
+    width: 95%;
+    padding: 10px;
+    border: 1px solid #00eeff;
+    border-radius: 4px;
+    background: #ffffff;
+    cursor: not-allowed;
+    box-shadow: 0 0 10px rgba(20, 220, 255, 0.582);
 }
 
 .form-group1 input:hover {
-  box-shadow: 0 0 10px rgba(41, 92, 134, 0.5);
+    box-shadow: 0 0 10px rgba(41, 92, 134, 0.5);
 }
 
 /* Informasi Profil */
 .profile-info {
-  margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 
 /* Tombol Edit Profil */
 .edit-profile-button {
-  padding: 10px 20px;
-  background: #2196F3;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background 0.3s ease;
+    padding: 10px 20px;
+    background: #2196f3;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s ease;
 }
 
 .edit-profile-button:hover {
-  background: #1976D2;
+    background: #1976d2;
 }
