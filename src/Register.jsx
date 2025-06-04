@@ -56,8 +56,8 @@ function Register() {
             <div className="register-box">
                 <h2 className="register-title">Halaman Daftar</h2>
                 <form onSubmit={handleSubmit} className="register-form">
-                    <div className="form-group">
-                        <label>Username:</label>
+                    <div className="form-groupreg">
+                        <label>Nama:</label>
                         <input
                             type="text"
                             name="name"
