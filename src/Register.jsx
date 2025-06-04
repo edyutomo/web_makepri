@@ -33,8 +33,8 @@ function Register() {
             <div className="register-box">
                 <h2 className="register-title">Halaman Daftar</h2>
                 <form onSubmit={handleSubmit} className="register-form">
-                    <div className="form-group">
-                        <label>Username:</label>
+                    <div className="form-groupreg">
+                        <label>Nama:</label>
                         <input
                             type="text"
                             name="username"
@@ -43,7 +43,7 @@ function Register() {
                             required
                         />
                     </div>
-                    <div className="form-group">
+                    <div className="form-groupreg">
                         <label>Email:</label>
                         <input
                             type="email"
@@ -53,8 +53,8 @@ function Register() {
                             required
                         />
                     </div>
-                    <div className="form-group">
-                        <label>Password:</label>
+                    <div className="form-groupreg">
+                        <label>Sandi:</label>
                         <input
                             type="password"
                             name="password"
@@ -63,8 +63,8 @@ function Register() {
                             required
                         />
                     </div>
-                    <div className="form-group">
-                        <label>Konfirmasi Password:</label>
+                    <div className="form-groupreg">
+                        <label>Konfirmasi Sandi:</label>
                         <input
                             type="password"
                             name="confirmPassword"
@@ -73,10 +73,12 @@ function Register() {
                             required
                         />
                     </div>
-                    <button type="submit" className="register-button">Daftar</button>
+                    <button type="submit" className="register-button">
+                        Daftar
+                    </button>
                 </form>
                 <p className="register-link">
-                    Sudah punya akun? <Link to="/">Login di sini</Link>
+                    Sudah punya akun? <Link to="/">Masuk di sini</Link>
                 </p>
             </div>
         </div>

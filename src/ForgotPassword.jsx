@@ -14,10 +14,12 @@ function ForgotPassword() {
     return (
         <div className="forgot-password-container">
             <div className="forgot-password-box">
-                <h2 className="forgot-password-title">Lupa Password</h2>
-                <p className="forgot-password-text">Masukkan email Anda untuk mendapatkan link reset password.</p>
+                <h2 className="forgot-password-title">Lupa Sandi</h2>
+                <p className="forgot-password-text">
+                    Masukkan email Anda untuk mendapatkan link reset sandi.
+                </p>
                 <form onSubmit={handleSubmit} className="forgot-password-form">
-                    <div className="form-group">
+                    <div className="form-groupfor">
                         <label>Email:</label>
                         <input
                             type="email"
@@ -26,9 +28,13 @@ function ForgotPassword() {
                             required
                         />
                     </div>
-                    <button type="submit" className="forgot-password-button">Kirim Link</button>
+                    <button type="submit" className="forgot-password-button">
+                        Kirim Link
+                    </button>
                 </form>
-                <button className="back-button" onClick={() => navigate("/")}>Kembali ke Login</button>
+                <button className="back-button" onClick={() => navigate("/")}>
+                    Kembali Masuk
+                </button>
             </div>
         </div>
     );
