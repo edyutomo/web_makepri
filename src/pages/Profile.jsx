@@ -9,8 +9,16 @@ function Profile() {
 
   useEffect(() => {
     const fetchProfile = async () => {
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        console.warn("Token tidak ditemukan, redirect ke login...");
+        navigate("/login");
+        return;
+      }
+
       try {
-        const token = localStorage.getItem("token");
+        console.log("Token yang digunakan:", token); // Debug: pastikan token valid
 
         const response = await fetch("https://apitugas3.xyz/api/user", {
           method: "GET",
@@ -22,20 +30,23 @@ function Profile() {
 
         const result = await response.json();
 
-        if (result.success) {
+        if (response.ok && result.success) {
           setProfile(result.data);
         } else {
-          alert("Gagal mengambil data profil");
-          console.error(result);
+          console.error("Gagal mengambil profil:", result);
+          alert("Gagal mengambil data profil. Silakan login ulang.");
+          localStorage.removeItem("token");
+          navigate("/login");
         }
       } catch (error) {
         console.error("Error saat fetch profile:", error);
         alert("Terjadi kesalahan saat mengambil profil.");
+        navigate("/login");
       }
     };
 
     fetchProfile();
-  }, []);
+  }, [navigate]);
 
   const handleEditProfile = () => {
     navigate("/edit-profile");
