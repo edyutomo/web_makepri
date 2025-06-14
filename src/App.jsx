@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Layout from "./layouts/LayoutWithSidebar";
 import Profile from "./pages/Profile";
 import EditProfile from "./pages/EditProfile";
+import EditKategori from "./pages/EditKategori";
 import Dashboard from "./pages/Dashboard";
 import ChartCard from './pages/ChartCard';
 import Dompet from './pages/Dompet';
@@ -23,7 +24,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
-
+        <Route path="/kategori" element={<EditKategori />} />
         {/* Rute dengan sidebar */}
         <Route
           path="/profile"

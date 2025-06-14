@@ -7,6 +7,7 @@ function Transaksi() {
   const [tampilkanKategori, setTampilkanKategori] = useState(false);
   const [kategori, setKategori] = useState([]);
   const [dompet, setDompet] = useState([]);
+  const [transaksi, setTransaksi] = useState([]);
   const [form, setForm] = useState({
     tanggal: "",
     kategori: "",
@@ -15,16 +16,26 @@ function Transaksi() {
     keterangan: "",
   });
 
-  // Fetch kategori dan dompet dari API
-  useEffect(() => {
-    axios.get("https://apitugas3.xyz/api/kategori")
-      .then((res) => setKategori(res.data))
-      .catch((err) => console.error("Gagal ambil kategori:", err));
+  const token = localStorage.getItem("token");
+  const headers = { Authorization: `Bearer ${token}` };
 
-    axios.get("https://apitugas3.xyz/api/dompet")
-      .then((res) => setDompet(res.data))
-      .catch((err) => console.error("Gagal ambil dompet:", err));
+  useEffect(() => {
+    axios.get("https://apitugas3.xyz/api/kategori", { headers })
+      .then(res => setKategori(res.data.data))
+      .catch(err => console.error("Gagal ambil kategori:", err));
+
+    axios.get("https://apitugas3.xyz/api/dompet", { headers })
+      .then(res => setDompet(res.data.data))
+      .catch(err => console.error("Gagal ambil dompet:", err));
+
+    fetchTransaksi();
   }, []);
+
+  const fetchTransaksi = () => {
+    axios.get("https://apitugas3.xyz/api/transaksi", { headers })
+      .then(res => setTransaksi(res.data.data))
+      .catch(err => console.error("Gagal ambil transaksi:", err));
+  };
 
   const handleTambahTransaksi = () => {
     setTampilkanForm(true);
@@ -40,6 +51,48 @@ function Transaksi() {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
   };
+
+  const simpanTransaksi = () => {
+    const data = {
+      tanggal: form.tanggal,
+      kategori_id: form.kategori,
+      dompet_id: form.dompet || null,
+      jumlah: form.jumlah,
+      // keterangan disimpan di field "keterangan", kamu bisa ubah jika DB tidak support
+      keterangan: form.keterangan,
+    };
+
+    axios.post("https://apitugas3.xyz/api/transaksi", data, { headers })
+      .then(() => {
+        alert("Transaksi berhasil ditambahkan!");
+        setForm({
+          tanggal: "",
+          kategori: "",
+          dompet: "",
+          jumlah: "",
+          keterangan: "",
+        });
+        setTampilkanForm(false);
+        fetchTransaksi();
+      })
+      .catch((err) => {
+        console.error("Gagal simpan transaksi:", err.response?.data);
+        alert("Gagal simpan transaksi.");
+      });
+  };
+  function formatTanggal(tgl) {
+  if (!tgl) return "-";
+
+  const dateObj = new Date(tgl);
+  if (isNaN(dateObj)) return tgl; // fallback jika bukan tanggal valid
+
+  const day = String(dateObj.getDate()).padStart(2, "0");
+  const month = String(dateObj.getMonth() + 1).padStart(2, "0");
+  const year = dateObj.getFullYear();
+
+  return `${day}-${month}-${year}`;
+}
+
 
   return (
     <div className="container-transaksi">
@@ -59,7 +112,16 @@ function Transaksi() {
                 </tr>
               </thead>
               <tbody>
-                {/* Data transaksi akan dimasukkan di sini */}
+                {transaksi.map((trx) => (
+                  <tr key={trx.id}>
+                    <td>{formatTanggal(trx.tanggal)}</td>
+
+                    <td>{trx.kategori_id}</td>
+                    <td>{trx.dompet_id || "-"}</td>
+                    <td>{trx.keterangan || "-"}</td>
+                    <td>Rp {parseInt(trx.jumlah).toLocaleString()}</td>
+                  </tr>
+                ))}
               </tbody>
             </table>
             <button className="button-primary" onClick={handleTambahTransaksi}>
@@ -68,7 +130,6 @@ function Transaksi() {
           </>
         )}
 
-        {/* Form Tambah Transaksi */}
         {tampilkanForm && (
           <div className="form-transaksi">
             <h3 className="form-title">Tambah Transaksi</h3>
@@ -144,13 +205,7 @@ function Transaksi() {
             </div>
 
             <div className="button-group">
-              <button
-                className="button-primary"
-                onClick={() => {
-                  console.log("Data disimpan:", form);
-                  // Simpan ke API di sini kalau mau
-                }}
-              >
+              <button className="button-primary" onClick={simpanTransaksi}>
                 Simpan
               </button>
               <button
@@ -172,7 +227,6 @@ function Transaksi() {
           </div>
         )}
 
-        {/* Manajemen Kategori */}
         {tampilkanKategori && (
           <div className="form-transaksi">
             <h3 className="form-title">Manajemen Kategori</h3>

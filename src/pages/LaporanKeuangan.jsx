@@ -1,11 +1,17 @@
 import React from "react";
-import "../css/laporankeuangan.css"; // Import file CSS terpisah
+import "../css/laporankeuangan.css";
 
 const transaksiData = [
-  { tanggal: "2025-04-01", keterangan: "Donasi Acara", jenis: "Pemasukan", jumlah: 2000000 },
-  { tanggal: "2025-04-03", keterangan: "Biaya Sewa Tempat", jenis: "Pengeluaran", jumlah: 750000 },
-  { tanggal: "2025-04-05", keterangan: "Donasi Tambahan", jenis: "Pemasukan", jumlah: 1000000 },
-  { tanggal: "2025-04-06", keterangan: "Pembelian Konsumsi", jenis: "Pengeluaran", jumlah: 500000 },
+  { tanggal: "2025-04-01", keterangan: "Donasi Acara", jenis: "Pemasukan", jumlah: 2000000, kategori: "Donasi" },
+  { tanggal: "2025-04-03", keterangan: "Biaya Sewa Tempat", jenis: "Pengeluaran", jumlah: 750000, kategori: "Operasional" },
+  { tanggal: "2025-04-05", keterangan: "Donasi Tambahan", jenis: "Pemasukan", jumlah: 1000000, kategori: "Donasi" },
+  { tanggal: "2025-04-06", keterangan: "Pembelian Konsumsi", jenis: "Pengeluaran", jumlah: 500000, kategori: "Operasional" },
+];
+
+// Contoh data budget per kategori dan bulan (dummy)
+const budgetData = [
+  { kategori: "Donasi", bulan: "2025-04", jumlah: 2500000 },
+  { kategori: "Operasional", bulan: "2025-04", jumlah: 1500000 },
 ];
 
 function formatRupiah(angka) {
@@ -13,8 +19,25 @@ function formatRupiah(angka) {
 }
 
 function LaporanKeuangan() {
-  const totalPemasukan = transaksiData.filter((item) => item.jenis === "Pemasukan").reduce((acc, curr) => acc + curr.jumlah, 0);
-  const totalPengeluaran = transaksiData.filter((item) => item.jenis === "Pengeluaran").reduce((acc, curr) => acc + curr.jumlah, 0);
+  // Total pemasukan dan pengeluaran dari data transaksi
+  const totalPemasukan = transaksiData
+    .filter((item) => item.jenis === "Pemasukan")
+    .reduce((acc, curr) => acc + curr.jumlah, 0);
+
+  const totalPengeluaran = transaksiData
+    .filter((item) => item.jenis === "Pengeluaran")
+    .reduce((acc, curr) => acc + curr.jumlah, 0);
+
+  // Ambil bulan laporan (contoh: "2025-04")
+  const bulanTerpilih = "2025-04";
+
+  // Hitung realisasi pengeluaran per kategori pada bulan terpilih
+  const realisasiPerKategori = transaksiData
+    .filter((t) => t.jenis === "Pengeluaran" && t.tanggal.startsWith(bulanTerpilih))
+    .reduce((acc, t) => {
+      acc[t.kategori] = (acc[t.kategori] || 0) + t.jumlah;
+      return acc;
+    }, {});
 
   return (
     <div className="laporan-container">
@@ -50,6 +73,34 @@ function LaporanKeuangan() {
               <td>{formatRupiah(item.jumlah)}</td>
             </tr>
           ))}
+        </tbody>
+      </table>
+
+      <h2 className="transaksi-title">Laporan Budget vs Realisasi Bulan {bulanTerpilih}</h2>
+      <table className="transaksi-table">
+        <thead>
+          <tr>
+            <th>Kategori</th>
+            <th>Budget</th>
+            <th>Realisasi</th>
+            <th>Selisih</th>
+          </tr>
+        </thead>
+        <tbody>
+          {budgetData.map((budget, index) => {
+            const realisasi = realisasiPerKategori[budget.kategori] || 0;
+            const selisih = budget.jumlah - realisasi;
+            return (
+              <tr key={index}>
+                <td>{budget.kategori}</td>
+                <td>{formatRupiah(budget.jumlah)}</td>
+                <td>{formatRupiah(realisasi)}</td>
+                <td style={{ color: selisih < 0 ? "red" : "green" }}>
+                  {formatRupiah(selisih)}
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>
