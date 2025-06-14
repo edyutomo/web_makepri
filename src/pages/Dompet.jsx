@@ -42,12 +42,18 @@ function Dompet() {
 
     if (loading) {
         return (
-            <div
-                className={`dompet-container ${
-                    isSidebarOpen ? "with-sidebar" : "full-width"
-                }`}
-            >
-                Memuat data...
+            <div style={{ display: "flex" }}>
+                <Sidebar
+                    isSidebarOpen={isSidebarOpen}
+                    onToggle={() => setIsSidebarOpen(!isSidebarOpen)}
+                />
+                <div
+                    className={`dompet-container ${
+                        isSidebarOpen ? "with-sidebar" : "full-width"
+                    }`}
+                >
+                    Memuat data...
+                </div>
             </div>
         );
     }
