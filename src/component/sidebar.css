@@ -8,7 +8,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    transition: left 0.3s;
+    transition: left 0.3s ease-in-out;
 }
 
 .sidebar.closed {

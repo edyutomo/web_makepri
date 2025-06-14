@@ -1,7 +1,22 @@
-/* Container utama */
 .dompet-container {
-    padding: 0px;
+    min-height: 100vh;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out;
+    position: relative;
+}
+
+/* Sidebar terbuka */
+.dompet-container.with-sidebar {
     margin-left: 250px;
+    width: calc(100% - 250px);
+}
+
+/* Sidebar tertutup */
+.dompet-container.full-width {
+    margin-left: 0;
+    width: 100%;
 }
 
 .dompet-container::before {

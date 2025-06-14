@@ -2,12 +2,13 @@ import { useState } from "react";
 import { Bar } from "react-chartjs-2";
 import Sidebar from "../component/Sidebar";
 import { Chart, registerables } from "chart.js";
-import "../css/dasboard.css"; // Import file CSS terpisah
+import "../css/dasboard.css";
 
 Chart.register(...registerables);
 
 function Dashboard() {
-    const [data, setData] = useState({
+    const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+    const [data] = useState({
         pemasukan: 5000000,
         pengeluaran: 3000000,
     });
@@ -24,22 +25,32 @@ function Dashboard() {
     };
 
     return (
-        <div className="dashboard-container">
-            <div className="dashboard-content">
-                <h2>Dashboard</h2>
-                <p>Selamat datang di aplikasi keuanganmu!</p>
-                <div className="financial-summary">
-                    <div className="financial-card income">
-                        <h3>Pemasukan</h3>
-                        <p>Rp {data.pemasukan.toLocaleString()}</p>
+        <div style={{ display: "flex" }}>
+            <Sidebar
+                isSidebarOpen={isSidebarOpen}
+                onToggle={() => setIsSidebarOpen(!isSidebarOpen)}
+            />
+            <div
+                className={`dashboard-container ${
+                    isSidebarOpen ? "with-sidebar" : "full-width"
+                }`}
+            >
+                <div className="dashboard-content">
+                    <h2>Dashboard</h2>
+                    <p>Selamat datang di aplikasi keuanganmu!</p>
+                    <div className="financial-summary">
+                        <div className="financial-card income">
+                            <h3>Pemasukan</h3>
+                            <p>Rp {data.pemasukan.toLocaleString()}</p>
+                        </div>
+                        <div className="financial-card expense">
+                            <h3>Pengeluaran</h3>
+                            <p>Rp {data.pengeluaran.toLocaleString()}</p>
+                        </div>
                     </div>
-                    <div className="financial-card expense">
-                        <h3>Pengeluaran</h3>
-                        <p>Rp {data.pengeluaran.toLocaleString()}</p>
+                    <div className="chart-container">
+                        <Bar data={chartData} />
                     </div>
-                </div>
-                <div className="chart-container">
-                    <Bar data={chartData} />
                 </div>
             </div>
         </div>

@@ -5,15 +5,22 @@
     width: 100vw;
     background-size: cover;
     background-position: center;
-}
-
-/* Konten Dashboard */
-.dashboard-container {
-    margin-left: 250px;
     padding: 20px;
-    width: calc(100% - 250px);
     background-color: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(10px);
+    transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out;
+}
+
+/* Saat sidebar terbuka */
+.dashboard-container.with-sidebar {
+    margin-left: 250px;
+    width: calc(100% - 250px);
+}
+
+/* Saat sidebar tertutup */
+.dashboard-container.full-width {
+    margin-left: 0;
+    width: 100%;
 }
 
 .dashboard-content::before {

@@ -5,6 +5,18 @@
     text-align: center;
 }
 
+.edit-profile-container.with-sidebar {
+    margin-left: 250px;
+    width: calc(100% - 250px);
+    padding: 20px;
+}
+
+.edit-profile-container.full-width {
+    margin-left: 0;
+    width: 100%;
+    padding: 20px;
+}
+
 .edit-profile-container::before {
     content: "";
     background: url("../assets/back.png") center no-repeat;

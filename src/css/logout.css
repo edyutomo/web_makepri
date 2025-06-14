@@ -5,6 +5,18 @@
     text-align: center;
 }
 
+.logout-container.with-sidebar {
+    margin-left: 250px;
+    width: calc(100% - 250px);
+    padding: 20px;
+}
+
+.logout-container.full-width {
+    margin-left: 0;
+    width: 100%;
+    padding: 20px;
+}
+
 .logout-container::before {
     content: "";
     background: url("../assets/back.png") center no-repeat;
