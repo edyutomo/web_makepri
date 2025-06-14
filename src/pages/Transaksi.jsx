@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom"; // ⬅️ Tambahkan ini
 import "../css/transaksi.css";
 
 function Transaksi() {
+  const navigate = useNavigate(); // ⬅️ Untuk navigasi ke /kategori
   const [tampilkanForm, setTampilkanForm] = useState(false);
-  const [tampilkanKategori, setTampilkanKategori] = useState(false);
   const [kategori, setKategori] = useState([]);
   const [dompet, setDompet] = useState([]);
   const [transaksi, setTransaksi] = useState([]);
@@ -39,12 +40,10 @@ function Transaksi() {
 
   const handleTambahTransaksi = () => {
     setTampilkanForm(true);
-    setTampilkanKategori(false);
   };
 
   const handleKategoriClick = () => {
-    setTampilkanKategori(true);
-    setTampilkanForm(false);
+    navigate("/kategori"); // ⬅️ Arahkan ke halaman kategori
   };
 
   const handleChangeForm = (e) => {
@@ -58,7 +57,6 @@ function Transaksi() {
       kategori_id: form.kategori,
       dompet_id: form.dompet || null,
       jumlah: form.jumlah,
-      // keterangan disimpan di field "keterangan", kamu bisa ubah jika DB tidak support
       keterangan: form.keterangan,
     };
 
@@ -80,26 +78,23 @@ function Transaksi() {
         alert("Gagal simpan transaksi.");
       });
   };
+
   function formatTanggal(tgl) {
-  if (!tgl) return "-";
-
-  const dateObj = new Date(tgl);
-  if (isNaN(dateObj)) return tgl; // fallback jika bukan tanggal valid
-
-  const day = String(dateObj.getDate()).padStart(2, "0");
-  const month = String(dateObj.getMonth() + 1).padStart(2, "0");
-  const year = dateObj.getFullYear();
-
-  return `${day}-${month}-${year}`;
-}
-
+    if (!tgl) return "-";
+    const dateObj = new Date(tgl);
+    if (isNaN(dateObj)) return tgl;
+    const day = String(dateObj.getDate()).padStart(2, "0");
+    const month = String(dateObj.getMonth() + 1).padStart(2, "0");
+    const year = dateObj.getFullYear();
+    return `${day}-${month}-${year}`;
+  }
 
   return (
     <div className="container-transaksi">
       <div className="card-transaksi">
         <h2 className="transaksi-title">Transaksi</h2>
 
-        {!tampilkanForm && !tampilkanKategori && (
+        {!tampilkanForm && (
           <>
             <table className="transaksi-table">
               <thead>
@@ -115,7 +110,6 @@ function Transaksi() {
                 {transaksi.map((trx) => (
                   <tr key={trx.id}>
                     <td>{formatTanggal(trx.tanggal)}</td>
-
                     <td>{trx.kategori_id}</td>
                     <td>{trx.dompet_id || "-"}</td>
                     <td>{trx.keterangan || "-"}</td>
@@ -224,30 +218,6 @@ function Transaksi() {
                 Batal
               </button>
             </div>
-          </div>
-        )}
-
-        {tampilkanKategori && (
-          <div className="form-transaksi">
-            <h3 className="form-title">Manajemen Kategori</h3>
-            <ul className="kategori-list">
-              {kategori.map((item) => (
-                <li key={item.id}>
-                  {item.nama}
-                  <button className="button-edit">Edit</button>
-                  <button className="button-delete">Hapus</button>
-                </li>
-              ))}
-            </ul>
-            <button
-              className="button-primary mt-2"
-              onClick={() => {
-                setTampilkanForm(false);
-                setTampilkanKategori(false);
-              }}
-            >
-              ← Kembali ke Transaksi
-            </button>
           </div>
         )}
       </div>

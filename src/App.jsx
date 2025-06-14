@@ -2,6 +2,8 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Layout from "./layouts/LayoutWithSidebar";
 import Profile from "./pages/Profile";
 import EditProfile from "./pages/EditProfile";
+import TambahKategori from "./pages/TambahKategori";
+import Kategori from "./pages/Kategori";
 import EditKategori from "./pages/EditKategori";
 import Dashboard from "./pages/Dashboard";
 import ChartCard from './pages/ChartCard';
@@ -24,7 +26,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/kategori" element={<EditKategori />} />
+
+      
         {/* Rute dengan sidebar */}
         <Route
           path="/profile"
@@ -91,6 +94,30 @@ function App() {
           }
         />
         {/* Tambahkan route lainnya sesuai kebutuhan */}
+        <Route
+          path="/tambahkategori"
+          element={
+            <LayoutWithSidebar>
+              <TambahKategori />
+            </LayoutWithSidebar>
+          }
+        />
+        <Route
+          path="/kategori"
+          element={
+            <LayoutWithSidebar>
+              <Kategori />
+            </LayoutWithSidebar>
+          }
+        />
+        <Route
+          path="/editkategori/:id"
+          element={
+            <LayoutWithSidebar>
+              <EditKategori />
+            </LayoutWithSidebar>
+          }
+        />
       </Routes>
     </Router>
   );

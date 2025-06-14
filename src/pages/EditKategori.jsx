@@ -1,81 +1,130 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { useNavigate, useParams } from "react-router-dom";
 
-function KategoriEdit() {
-  const [kategori, setKategori] = useState([]);
-  const [filter, setFilter] = useState(null); // null | "pemasukan" | "pengeluaran"
+function EditKategori() {
+  const { id } = useParams();
+  const [nama, setNama] = useState("");
+  const [tipe, setTipe] = useState("");
+  const navigate = useNavigate();
 
   const token = localStorage.getItem("token");
-  const headers = { Authorization: `Bearer ${token}` };
 
   useEffect(() => {
-    axios.get("https://apitugas3.xyz/api/kategori", { headers })
-      .then(res => setKategori(res.data.data))
-      .catch(err => console.error("Gagal ambil kategori:", err));
-  }, []);
+    fetch(`https://apitugas3.xyz/api/kategori/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        console.log("Respon API:", result); // ✅ Debug respons GET
 
-  // Filter kategori sesuai tipe pemasukan/pengeluaran
-  const kategoriFiltered = filter
-    ? kategori.filter(k => k.tipe === filter) // misal di backend ada tipe field "pemasukan"/"pengeluaran"
-    : [];
+        if (result.success) {
+          setNama(result.data.nama);
+          setTipe(result.data.tipe);
+        } else {
+          alert("Gagal memuat data kategori.");
+        }
+      })
+      .catch((err) => {
+        console.error("Error:", err);
+        alert("Terjadi kesalahan saat memuat data.");
+      });
+  }, [id]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    fetch(`https://apitugas3.xyz/api/kategori/${id}`, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        nama,
+        tipe,
+      }),
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        console.log("Respon PUT:", result); // ✅ Debug respons PUT
+
+        if (result.success) {
+          alert("Kategori berhasil diperbarui!");
+          navigate("/kategori");
+        } else {
+          alert("Gagal memperbarui kategori.");
+        }
+      })
+      .catch((err) => {
+        console.error("Error:", err);
+        alert("Terjadi kesalahan saat mengedit.");
+      });
+  };
 
   return (
     <div style={{
-      width: "600px",
+      maxWidth: "500px",
       margin: "50px auto",
       padding: "20px",
-      backgroundColor: "#fff",
-      border: "2px solid black",
+      border: "2px solid #000",
       borderRadius: "8px",
-      boxShadow: "0 0 10px rgba(0,0,0,0.2)",
-      fontFamily: "Inter, sans-serif"
+      backgroundColor: "#fff",
+      boxShadow: "0 0 10px rgba(0,0,0,0.1)"
     }}>
-      <h2 style={{ fontSize: "21px", color: "#000", marginBottom: "16px" }}>
-        Kategori
-      </h2>
-
-      <div style={{ marginBottom: "16px" }}>
-        <button onClick={() => setFilter("pemasukan")} style={{ marginRight: 10 }}>
-          Tampilkan Kategori Pemasukan
-        </button>
-        <button onClick={() => setFilter("pengeluaran")}>
-          Tampilkan Kategori Pengeluaran
-        </button>
-        <button onClick={() => setFilter(null)} style={{ marginLeft: 10 }}>
-          Tampilkan Semua
-        </button>
-      </div>
-
-      {filter && (
-        <table style={{ width: "100%", borderCollapse: "collapse" }}>
-          <thead>
-            <tr>
-              <th style={{ borderBottom: "1px solid #000", padding: "8px" }}>ID</th>
-              <th style={{ borderBottom: "1px solid #000", padding: "8px" }}>Nama Kategori</th>
-              <th style={{ borderBottom: "1px solid #000", padding: "8px" }}>Tipe</th>
-            </tr>
-          </thead>
-          <tbody>
-            {kategoriFiltered.length > 0 ? (
-              kategoriFiltered.map(k => (
-                <tr key={k.id}>
-                  <td style={{ borderBottom: "1px solid #ddd", padding: "8px" }}>{k.id}</td>
-                  <td style={{ borderBottom: "1px solid #ddd", padding: "8px" }}>{k.nama}</td>
-                  <td style={{ borderBottom: "1px solid #ddd", padding: "8px" }}>{k.tipe}</td>
-                </tr>
-              ))
-            ) : (
-              <tr><td colSpan={3} style={{ padding: "8px" }}>Tidak ada kategori {filter}</td></tr>
-            )}
-          </tbody>
-        </table>
-      )}
-
-      {!filter && (
-        <p>Pilih tombol pemasukan atau pengeluaran untuk menampilkan kategori terkait.</p>
-      )}
+      <h2 style={{ marginBottom: "20px" }}>Edit Kategori</h2>
+      <form onSubmit={handleSubmit}>
+        <div style={{ marginBottom: "15px" }}>
+          <label>Nama Kategori</label><br />
+          <input
+            type="text"
+            value={nama}
+            onChange={(e) => setNama(e.target.value)}
+            required
+            style={{ width: "100%", padding: "8px" }}
+          />
+        </div>
+        <div style={{ marginBottom: "15px" }}>
+          <label>Tipe</label><br />
+          <select
+            value={tipe}
+            onChange={(e) => setTipe(e.target.value)}
+            required
+            style={{ width: "100%", padding: "8px" }}
+          >
+            <option value="">Pilih Tipe</option>
+            <option value="pemasukan">Pemasukan</option>
+            <option value="pengeluaran">Pengeluaran</option>
+          </select>
+        </div>
+        <div style={{ textAlign: "right" }}>
+          <button type="submit" style={{
+            padding: "8px 16px",
+            backgroundColor: "#007bff",
+            color: "#fff",
+            border: "none",
+            borderRadius: "4px",
+            cursor: "pointer"
+          }}>
+            Simpan Perubahan
+          </button>
+          <button type="button" onClick={() => navigate("/kategori")} style={{
+            marginLeft: "10px",
+            padding: "8px 16px",
+            backgroundColor: "#6c757d",
+            color: "#fff",
+            border: "none",
+            borderRadius: "4px",
+            cursor: "pointer"
+          }}>
+            Batal
+          </button>
+        </div>
+      </form>
     </div>
   );
 }
 
-export default KategoriEdit;
+export default EditKategori;
