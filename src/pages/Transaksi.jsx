@@ -1,17 +1,30 @@
-import React, { useState } from "react";
-
-const dummyKategori = ["Makanan", "Belanja", "Listrik", "Kouta", "Cemilan"];
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import "../css/transaksi.css";
 
 function Transaksi() {
   const [tampilkanForm, setTampilkanForm] = useState(false);
   const [tampilkanKategori, setTampilkanKategori] = useState(false);
-  const [kategori, setKategori] = useState(dummyKategori);
+  const [kategori, setKategori] = useState([]);
+  const [dompet, setDompet] = useState([]);
   const [form, setForm] = useState({
     tanggal: "",
     kategori: "",
+    dompet: "",
     jumlah: "",
     keterangan: "",
   });
+
+  // Fetch kategori dan dompet dari API
+  useEffect(() => {
+    axios.get("https://apitugas3.xyz/api/kategori")
+      .then((res) => setKategori(res.data))
+      .catch((err) => console.error("Gagal ambil kategori:", err));
+
+    axios.get("https://apitugas3.xyz/api/dompet")
+      .then((res) => setDompet(res.data))
+      .catch((err) => console.error("Gagal ambil dompet:", err));
+  }, []);
 
   const handleTambahTransaksi = () => {
     setTampilkanForm(true);
@@ -29,55 +42,27 @@ function Transaksi() {
   };
 
   return (
-    <div style={{ padding: "20px", marginLeft: "250px" }}>
-      <div style={{ padding: "20px", background: "#fff", borderRadius: "8px", boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)" }}>
-        <h2 style={{ marginBottom: "20px", color: "#2196F3" }}>Transaksi</h2>
+    <div className="container-transaksi">
+      <div className="card-transaksi">
+        <h2 className="transaksi-title">Transaksi</h2>
 
-        {/* Daftar transaksi */}
         {!tampilkanForm && !tampilkanKategori && (
           <>
-            <table style={{ width: "100%", borderCollapse: "collapse" }}>
+            <table className="transaksi-table">
               <thead>
-                <tr style={{ background: "#2196F3", color: "#fff" }}>
-                  <th style={{ padding: "10px", border: "1px solid #ddd" }}>Tanggal</th>
-                  <th style={{ padding: "10px", border: "1px solid #ddd" }}>Kategori</th>
-                  <th style={{ padding: "10px", border: "1px solid #ddd" }}>Keterangan</th>
-                  <th style={{ padding: "10px", border: "1px solid #ddd" }}>Jumlah</th>
+                <tr className="table-header">
+                  <th>Tanggal</th>
+                  <th>Kategori</th>
+                  <th>Dompet</th>
+                  <th>Keterangan</th>
+                  <th>Jumlah</th>
                 </tr>
               </thead>
               <tbody>
-                {/* contoh dummy */}
-                <tr style={{ background: "#fff" }}>
-                  <td style={{ padding: "10px", border: "1px solid #ddd" }}>2025-04-30</td>
-                  <td style={{ padding: "10px", border: "1px solid #ddd" }}>Makanan</td>
-                  <td style={{ padding: "10px", border: "1px solid #ddd" }}>Bakso</td>
-                  <td style={{ padding: "10px", border: "1px solid #ddd" }}>Rp20.000</td>
-                </tr>
+                {/* Data transaksi akan dimasukkan di sini */}
               </tbody>
             </table>
-            <button
-              style={{
-                marginTop: "20px",
-                padding: "10px 20px",
-                background: "#2196F3",
-                color: "#fff",
-                border: "none",
-                borderRadius: "4px",
-                cursor: "pointer",
-                transition: "all 0.3s ease",
-              }}
-              onMouseOver={(e) => {
-                e.target.style.background = "#1976D2";
-                e.target.style.transform = "translateY(-2px)";
-                e.target.style.boxShadow = "0 4px 8px rgba(33, 150, 243, 0.5)";
-              }}
-              onMouseOut={(e) => {
-                e.target.style.background = "#2196F3";
-                e.target.style.transform = "translateY(0)";
-                e.target.style.boxShadow = "none";
-              }}
-              onClick={handleTambahTransaksi}
-            >
+            <button className="button-primary" onClick={handleTambahTransaksi}>
               + Tambah Transaksi
             </button>
           </>
@@ -85,185 +70,127 @@ function Transaksi() {
 
         {/* Form Tambah Transaksi */}
         {tampilkanForm && (
-          <div style={{ border: "1px solid #ccc", padding: "20px", marginTop: "20px", background: "#fff", borderRadius: "8px" }}>
-            <h3 style={{ marginBottom: "20px" }}>Tambah Transaksi</h3>
-            <div style={{ marginBottom: "20px" }}>
-              <label style={{ display: "block", marginBottom: "10px" }}>Tanggal: </label>
+          <div className="form-transaksi">
+            <h3 className="form-title">Tambah Transaksi</h3>
+
+            <div>
+              <label>Tanggal:</label>
               <input
                 type="date"
                 name="tanggal"
                 value={form.tanggal}
                 onChange={handleChangeForm}
-                style={{ padding: "10px", border: "1px solid #ccc", borderRadius: "4px", width: "100%" }}
+                className="input-full"
               />
             </div>
-            <div style={{ marginBottom: "20px" }}>
-              <label style={{ display: "block", marginBottom: "10px" }}>Kategori: </label>
+
+            <div>
+              <label>Kategori:</label>
               <select
                 name="kategori"
                 value={form.kategori}
                 onChange={handleChangeForm}
-                style={{ padding: "10px", border: "1px solid #ccc", borderRadius: "4px", width: "100%" }}
+                className="input-full"
               >
-                {kategori.map((k, i) => (
-                  <option key={i} value={k}>
-                    {k}
+                <option value="">-- Pilih Kategori --</option>
+                {kategori.map((k) => (
+                  <option key={k.id} value={k.id}>
+                    {k.nama}
                   </option>
                 ))}
               </select>
-              <button
-                style={{
-                  marginTop: "10px",
-                  padding: "10px 20px",
-                  background: "#2196F3",
-                  color: "#fff",
-                  border: "none",
-                  borderRadius: "4px",
-                  cursor: "pointer",
-                  transition: "all 0.3s ease",
-                }}
-                onMouseOver={(e) => {
-                  e.target.style.background = "#1976D2";
-                  e.target.style.transform = "translateY(-2px)";
-                  e.target.style.boxShadow = "0 4px 8px rgba(33, 150, 243, 0.5)";
-                }}
-                onMouseOut={(e) => {
-                  e.target.style.background = "#2196F3";
-                  e.target.style.transform = "translateY(0)";
-                  e.target.style.boxShadow = "none";
-                }}
-                onClick={handleKategoriClick}
-              >
+              <button className="button-primary mt-1" onClick={handleKategoriClick}>
                 Edit Kategori
               </button>
             </div>
-            <div style={{ marginBottom: "20px" }}>
-              <label style={{ display: "block", marginBottom: "10px" }}>Jumlah: </label>
+
+            <div>
+              <label>Dompet:</label>
+              <select
+                name="dompet"
+                value={form.dompet}
+                onChange={handleChangeForm}
+                className="input-full"
+              >
+                <option value="">-- Pilih Dompet --</option>
+                {dompet.map((d) => (
+                  <option key={d.id} value={d.id}>
+                    {d.nama}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label>Jumlah:</label>
               <input
                 type="number"
                 name="jumlah"
                 value={form.jumlah}
                 onChange={handleChangeForm}
-                style={{ padding: "10px", border: "1px solid #ccc", borderRadius: "4px", width: "100%" }}
+                className="input-full"
               />
             </div>
-            <div style={{ marginBottom: "20px" }}>
-              <label style={{ display: "block", marginBottom: "10px" }}>Keterangan: </label>
+
+            <div>
+              <label>Keterangan:</label>
               <input
                 type="text"
                 name="keterangan"
                 value={form.keterangan}
                 onChange={handleChangeForm}
-                style={{ padding: "10px", border: "1px solid #ccc", borderRadius: "4px", width: "100%" }}
+                className="input-full"
               />
             </div>
-            <button
-              style={{
-                padding: "10px 20px",
-                background: "#2196F3",
-                color: "#fff",
-                border: "none",
-                borderRadius: "4px",
-                cursor: "pointer",
-                transition: "all 0.3s ease",
-              }}
-              onMouseOver={(e) => {
-                e.target.style.background = "#1976D2";
-                e.target.style.transform = "translateY(-2px)";
-                e.target.style.boxShadow = "0 4px 8px rgba(33, 150, 243, 0.5)";
-              }}
-              onMouseOut={(e) => {
-                e.target.style.background = "#2196F3";
-                e.target.style.transform = "translateY(0)";
-                e.target.style.boxShadow = "none";
-              }}
-            >
-              Confirm
-            </button>
+
+            <div className="button-group">
+              <button
+                className="button-primary"
+                onClick={() => {
+                  console.log("Data disimpan:", form);
+                  // Simpan ke API di sini kalau mau
+                }}
+              >
+                Simpan
+              </button>
+              <button
+                className="button-secondary"
+                onClick={() => {
+                  setTampilkanForm(false);
+                  setForm({
+                    tanggal: "",
+                    kategori: "",
+                    dompet: "",
+                    jumlah: "",
+                    keterangan: "",
+                  });
+                }}
+              >
+                Batal
+              </button>
+            </div>
           </div>
         )}
 
         {/* Manajemen Kategori */}
         {tampilkanKategori && (
-          <div style={{ marginTop: "20px" }}>
-            <h3 style={{ marginBottom: "20px" }}>Manajemen Kategori</h3>
-            <ul style={{ listStyle: "none", padding: "0", margin: "0" }}>
-              {kategori.map((item, idx) => (
-                <li key={idx} style={{ padding: "10px", borderBottom: "1px solid #ccc" }}>
-                  {item}
-                  <button
-                    style={{
-                      marginLeft: "10px",
-                      padding: "5px 10px",
-                      background: "#2196F3",
-                      color: "#fff",
-                      border: "none",
-                      borderRadius: "4px",
-                      cursor: "pointer",
-                      transition: "all 0.3s ease",
-                    }}
-                    onMouseOver={(e) => {
-                      e.target.style.background = "#1976D2";
-                      e.target.style.transform = "translateY(-2px)";
-                      e.target.style.boxShadow = "0 4px 8px rgba(33, 150, 243, 0.5)";
-                    }}
-                    onMouseOut={(e) => {
-                      e.target.style.background = "#2196F3";
-                      e.target.style.transform = "translateY(0)";
-                      e.target.style.boxShadow = "none";
-                    }}
-                  >
-                    Edit
-                  </button>
-                  <button
-                    style={{
-                      marginLeft: "10px",
-                      padding: "5px 10px",
-                      background: "#f44336",
-                      color: "#fff",
-                      border: "none",
-                      borderRadius: "4px",
-                      cursor: "pointer",
-                      transition: "all 0.3s ease",
-                    }}
-                    onMouseOver={(e) => {
-                      e.target.style.background = "#e91e63";
-                      e.target.style.transform = "translateY(-2px)";
-                      e.target.style.boxShadow = "0 4px 8px rgba(244, 67, 54, 0.5)";
-                    }}
-                    onMouseOut={(e) => {
-                      e.target.style.background = "#f44336";
-                      e.target.style.transform = "translateY(0)";
-                      e.target.style.boxShadow = "none";
-                    }}
-                  >
-                    Hapus
-                  </button>
+          <div className="form-transaksi">
+            <h3 className="form-title">Manajemen Kategori</h3>
+            <ul className="kategori-list">
+              {kategori.map((item) => (
+                <li key={item.id}>
+                  {item.nama}
+                  <button className="button-edit">Edit</button>
+                  <button className="button-delete">Hapus</button>
                 </li>
               ))}
             </ul>
             <button
-              style={{
-                marginTop: "20px",
-                padding: "10px 20px",
-                background: "#2196F3",
-                color: "#fff",
-                border: "none",
-                borderRadius: "4px",
-                cursor: "pointer",
-                transition: "all 0.3s ease",
+              className="button-primary mt-2"
+              onClick={() => {
+                setTampilkanForm(false);
+                setTampilkanKategori(false);
               }}
-              onMouseOver={(e) => {
-                e.target.style.background = "#1976D2";
-                e.target.style.transform = "translateY(-2px)";
-                e.target.style.boxShadow = "0 4px 8px rgba(33, 150, 243, 0.5)";
-              }}
-              onMouseOut={(e) => {
-                e.target.style.background = "#2196F3";
-                e.target.style.transform = "translateY(0)";
-                e.target.style.boxShadow = "none";
-              }}
-              onClick={() => setTampilkanForm(true)}
             >
               ← Kembali ke Transaksi
             </button>
