@@ -13,7 +13,7 @@ body {
 
 .login-left h3,
 h2 {
-    font-size: 2vw;
+    font-size: 1em;
 }
 
 /* KIRI */
@@ -44,13 +44,13 @@ h2 {
 }
 
 .logo-symbol {
-    font-size: 3vw;
+    font-size: 1.2em;
     font-weight: bold;
 }
 
 .logo-text {
     font-weight: bold;
-    font-size: 2vw;
+    font-size: 1em;
     letter-spacing: 0.2vw;
 }
 
@@ -58,7 +58,7 @@ h2 {
     position: absolute;
     left: 40%;
     transform: translate(-50%, -50%);
-    background-color: rgb(133, 133, 133, 0.9);
+    background-color: rgba(133, 133, 133, 0.9);
     border-radius: 2vw;
     margin: 5vw;
     padding: 3vw;
@@ -83,13 +83,15 @@ h2 {
 .login-title {
     text-align: center;
     margin-bottom: 2vw;
-    font-size: 2vw;
+    font-size: 1.2em;
 }
 
 .form-grouplog {
     display: flex;
     justify-content: center;
     margin-bottom: 2vw;
+    position: relative;
+    width: 100%;
 }
 
 .form-grouplog input {
@@ -97,24 +99,30 @@ h2 {
     border: none;
     width: 80%;
     border-radius: 1vw;
-    font-size: 1.5vw;
+    font-size: 1.2em;
     margin-bottom: 1vw;
 }
 
-.password-grouplog {
+/* Mata password */
+.password-group {
     display: flex;
     align-items: center;
+    justify-content: center;
     position: relative;
 }
 
 .toggle-passwordlog {
     position: absolute;
-    right: 10%;
-    top: 50%;
+    right: 3vw;
+    top: 37.5%;
     transform: translateY(-50%);
+    background: none;
+    border: none;
     cursor: pointer;
-    color: #333;
-    font-size: 1.5vw;
+    font-size: 1.2em;
+    color: #555;
+    padding: 0;
+    margin: 0;
 }
 
 .login-button {
@@ -128,7 +136,7 @@ h2 {
     border-radius: 1vw;
     font-weight: bold;
     cursor: pointer;
-    font-size: 1.5vw;
+    font-size: 1.2em;
     margin-top: 1vw;
     margin-bottom: 2vw;
 }
@@ -153,15 +161,22 @@ h2 {
     color: #000000;
 }
 
-/* Tambahkan media query untuk ukuran layar kecil */
+/* Responsive */
 @media only screen and (max-width: 768px) {
     .login-wrapper {
         flex-direction: column;
     }
+
     .login-left {
         padding: 10vw;
     }
+
     .login-right {
         margin: 5vw 0;
+    }
+
+    .toggle-passwordlog {
+        font-size: 5vw;
+        right: 10%;
     }
 }

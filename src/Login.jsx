@@ -11,42 +11,41 @@ function Login() {
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
-    e.preventDefault();
+        e.preventDefault();
 
-    try {
-        const response = await fetch("https://apitugas3.xyz/api/login", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json",
-            },
-            body: JSON.stringify({ email, password }),
-        });
+        try {
+            const response = await fetch("https://apitugas3.xyz/api/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                },
+                body: JSON.stringify({ email, password }),
+            });
 
-        const result = await response.json();
+            const result = await response.json();
 
-        if (response.ok && result.status) {
-            // Simpan token & data user
-            localStorage.setItem("token", result.token);
-            localStorage.setItem("user", JSON.stringify(result.user));
+            if (response.ok && result.status) {
+                localStorage.setItem("token", result.token);
+                localStorage.setItem("user", JSON.stringify(result.user));
 
-            setAlertMessage("Login sukses!");
-            setAlertVisible(true);
-            setTimeout(() => {
-                setAlertVisible(false);
-                navigate("/dashboard");
-            }, 1500);
-        } else {
-            setAlertMessage(result.message || "Login gagal");
+                setAlertMessage("Login sukses!");
+                setAlertVisible(true);
+                setTimeout(() => {
+                    setAlertVisible(false);
+                    navigate("/dashboard");
+                }, 1500);
+            } else {
+                setAlertMessage(result.message || "Login gagal");
+                setAlertVisible(true);
+                setTimeout(() => setAlertVisible(false), 2000);
+            }
+        } catch (error) {
+            setAlertMessage("Terjadi kesalahan jaringan.");
             setAlertVisible(true);
             setTimeout(() => setAlertVisible(false), 2000);
         }
-    } catch (error) {
-        setAlertMessage("Terjadi kesalahan jaringan.");
-        setAlertVisible(true);
-        setTimeout(() => setAlertVisible(false), 2000);
-    }
-};
+    };
 
     return (
         <div className="login-wrapper">
@@ -85,12 +84,14 @@ function Login() {
                             onChange={(e) => setPassword(e.target.value)}
                             required
                         />
-                        <span
+                        <button
+                            type="button"
                             className="toggle-passwordlog"
                             onClick={() => setShowPassword(!showPassword)}
+                            tabIndex={-1}
                         >
-                            👁️
-                        </span>
+                            {showPassword ? "🙉" : "🙈"}
+                        </button>
                     </div>
                     <button type="submit" className="login-button">
                         MASUK
