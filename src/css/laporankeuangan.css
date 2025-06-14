@@ -33,12 +33,6 @@
     z-index: -1;
 }
 
-/* Judul */
-.laporan-title {
-    margin-bottom: 20px;
-    color: #2196f3;
-}
-
 /* Ringkasan Keuangan */
 .summary-container {
     display: flex;

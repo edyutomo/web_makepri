@@ -1,0 +1,42 @@
+.head-title-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #1976d2;
+    padding: 12px 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    color: white;
+    position: relative;
+}
+
+.title-left,
+.title-right {
+    width: 40px; /* beri lebar agar seimbang kiri-kanan */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sidebar-toggle {
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    padding: 0;
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+.sidebar-toggle svg {
+    width: 24px;
+    height: 24px;
+}
+
+.head-title-text {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+    flex-grow: 1;
+}
