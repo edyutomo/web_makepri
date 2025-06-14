@@ -6,41 +6,40 @@ function EditProfile() {
   const [username, setUsername] = useState("");
   const [passwordLama, setPasswordLama] = useState("");
   const [passwordBaru, setPasswordBaru] = useState("");
+  const [fotoProfile, setFotoProfile] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
   useEffect(() => {
-  const token = localStorage.getItem('token');
-  console.log("Token saat ambil profil:", token);
-  if (!token) {
-    alert("Silakan login terlebih dahulu.");
-    return;
-  }
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("Silakan login terlebih dahulu.");
+      return;
+    }
 
-  fetch("https://apitugas3.xyz/api/user", {
-    headers: {
-      Authorization: "Bearer " + token,
-      Accept: "application/json"
-    },
-  })
-    .then((res) => {
-      if (!res.ok) throw new Error("Unauthorized");
-      return res.json();
+    fetch("https://apitugas3.xyz/api/user", {
+      headers: {
+        Authorization: "Bearer " + token,
+        Accept: "application/json",
+      },
     })
-    .then((data) => {
-      if (data.success && data.data) {
-        setUsername(data.data.name || "");
-      } else {
-        throw new Error("Gagal ambil data profil");
-      }
-    })
-    .catch((err) => {
-      console.error("ERROR:", err);
-      alert("Gagal mengambil data profil. Silakan cek koneksi atau token Anda.");
-      setUsername("");
-    });
-}, [navigate]);
+      .then((res) => {
+        if (!res.ok) throw new Error("Unauthorized");
+        return res.json();
+      })
+      .then((data) => {
+        if (data.success && data.data) {
+          setUsername(data.data.name || "");
+        } else {
+          throw new Error("Gagal ambil data profil");
+        }
+      })
+      .catch((err) => {
+        console.error("ERROR:", err);
+        alert("Gagal mengambil data profil. Silakan cek koneksi atau token Anda.");
+      });
+  }, [navigate]);
 
   const handleSimpan = () => {
   const token = localStorage.getItem("token");
@@ -50,8 +49,6 @@ function EditProfile() {
     return;
   }
 
-  console.log("Token saat update:", token);
-
   if (passwordBaru && passwordBaru.length < 6) {
     alert("Password baru minimal 6 karakter!");
     return;
@@ -59,24 +56,28 @@ function EditProfile() {
 
   setLoading(true);
 
-  const payload = { name: username };
+  const formData = new FormData();
+  formData.append("_method", "PUT"); // 🔥 Ini yang WAJIB untuk spoof method PUT
+  formData.append("name", username);
   if (passwordBaru) {
-    payload.password = passwordBaru;
-    payload.password_lama = passwordLama; // Jika backend butuh password lama
+    formData.append("password", passwordBaru);
+    formData.append("password_lama", passwordLama); // jika nanti kamu validasi password lama
+  }
+  if (fotoProfile) {
+    formData.append("foto_profile", fotoProfile);
   }
 
   fetch("https://apitugas3.xyz/api/user", {
-    method: "PUT",
+    method: "POST", // tetap POST tapi di-spoof ke PUT
     headers: {
-      "Content-Type": "application/json",
       Authorization: "Bearer " + token,
     },
-    body: JSON.stringify(payload),
+    body: formData,
   })
     .then(async (res) => {
       setLoading(false);
       if (res.status === 401) {
-        alert("Unauthorized. Token tidak valid atau sudah kadaluarsa. Silakan login ulang.");
+        alert("Unauthorized. Silakan login ulang.");
         navigate("/login");
         return;
       }
@@ -109,7 +110,6 @@ function EditProfile() {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             disabled={loading}
-            placeholder="Isi username manual jika gagal load"
           />
         </div>
         <div className="form-group">
@@ -132,19 +132,20 @@ function EditProfile() {
             placeholder="Kosongkan jika tidak ingin ganti password"
           />
         </div>
-        <div className="button-group">
-          <button
-            className="save-button"
-            onClick={handleSimpan}
+        <div className="form-group">
+          <label>Foto Profil:</label>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={(e) => setFotoProfile(e.target.files[0])}
             disabled={loading}
-          >
+          />
+        </div>
+        <div className="button-group">
+          <button className="save-button" onClick={handleSimpan} disabled={loading}>
             {loading ? "Menyimpan..." : "Simpan"}
           </button>
-          <button
-            className="cancel-button"
-            onClick={handleBatal}
-            disabled={loading}
-          >
+          <button className="cancel-button" onClick={handleBatal} disabled={loading}>
             Batal
           </button>
         </div>

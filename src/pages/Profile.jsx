@@ -18,7 +18,7 @@ function Profile() {
       }
 
       try {
-        console.log("Token yang digunakan:", token); // Debug: pastikan token valid
+        console.log("Token yang digunakan:", token);
 
         const response = await fetch("https://apitugas3.xyz/api/user", {
           method: "GET",
@@ -62,10 +62,10 @@ function Profile() {
         <h2 className="profile-title">Profil Pengguna</h2>
         <div className="profile-image-container">
           <img
-            src={profile.foto_profile || makepriImage}
-            alt="Foto Profile"
-            className="profile-image"
-          />
+  src={profile.foto_profile ? profile.foto_profile : "https://apitugas3.xyz/foto_profile/default.jpg"}
+  alt="Foto Profile"
+  className="profile-image"
+/>
         </div>
         <form className="profile-form">
           <div className="form-group">
@@ -75,14 +75,6 @@ function Profile() {
           <div className="form-group">
             <label>Email:</label>
             <input type="email" value={profile.email} readOnly />
-          </div>
-          <div className="form-group">
-            <label>Saldo:</label>
-            <input
-              type="text"
-              value={`Rp ${parseInt(profile.saldo).toLocaleString()}`}
-              readOnly
-            />
           </div>
         </form>
         <button className="edit-profile-button" onClick={handleEditProfile}>
