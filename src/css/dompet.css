@@ -5,6 +5,7 @@
     backdrop-filter: blur(10px);
     transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out;
     position: relative;
+    box-sizing: border-box;
 }
 
 /* Sidebar terbuka */
@@ -44,19 +45,25 @@
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
+    justify-content: center;
 }
 
 /* Kartu Dompet */
-.dompet-card {
+.dompet-card,
+.dompet-add {
     padding: 20px;
-    background: #ffffff;
-    border: 1px solid #919191;
     border-radius: 8px;
     width: 200px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
-    cursor: pointer;
     text-align: center;
+    box-sizing: border-box;
+}
+
+.dompet-card {
+    background: #ffffff;
+    border: 1px solid #919191;
+    cursor: pointer;
 }
 
 .dompet-card:hover {
@@ -65,16 +72,11 @@
     transform: translateY(-2px);
 }
 
-/* Tombol Tambah Dompet */
 .dompet-add {
-    padding: 20px;
     background: #2196f3;
     color: #ffffff;
-    border-radius: 8px;
-    width: 200px;
-    text-align: center;
     text-decoration: none;
-    transition: all 0.3s ease;
+    cursor: pointer;
 }
 
 .dompet-add:hover {
@@ -83,7 +85,57 @@
     box-shadow: 0 4px 8px rgba(33, 150, 243, 0.5);
 }
 
-/* Ikon Tambah */
 .dompet-add-icon {
     font-size: 24px;
+}
+
+/* Media Queries: Responsif */
+@media (max-width: 1024px) {
+    .dompet-container.with-sidebar {
+        margin-left: 200px;
+        width: calc(100% - 200px);
+    }
+
+    .dompet-card,
+    .dompet-add {
+        width: 180px;
+    }
+}
+
+@media (max-width: 768px) {
+    .dompet-container.with-sidebar {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .dompet-card,
+    .dompet-add {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .dompet-list {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .dompet-container {
+        padding: 10px;
+    }
+
+    .dompet-title {
+        font-size: 20px;
+        text-align: center;
+    }
+
+    .dompet-card,
+    .dompet-add {
+        padding: 15px;
+        font-size: 14px;
+    }
+
+    .dompet-add-icon {
+        font-size: 20px;
+    }
 }

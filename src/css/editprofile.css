@@ -1,25 +1,25 @@
 /* Container utama */
 .edit-profile-container {
     padding: 20px;
-    margin-left: 250px;
     text-align: center;
     min-height: 100vh;
     background-color: rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(10px);
     transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out;
     position: relative;
+    box-sizing: border-box;
 }
 
+/* Sidebar terbuka */
 .edit-profile-container.with-sidebar {
     margin-left: 250px;
     width: calc(100% - 250px);
-    padding: 20px;
 }
 
+/* Sidebar tertutup */
 .edit-profile-container.full-width {
     margin-left: 0;
     width: 100%;
-    padding: 20px;
 }
 
 .edit-profile-container::before {
@@ -37,29 +37,33 @@
 
 /* Kotak Edit Profil */
 .edit-profile-box {
-    padding: 20px;
+    padding: 25px;
     background: #f0f0f0;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 400px;
-    margin: 0 auto;
+    max-width: 500px;
+    margin: 40px auto;
+    box-sizing: border-box;
 }
 
 /* Judul */
 .edit-profile-title {
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     color: #2196f3;
+    font-size: 24px;
 }
 
 /* Form */
 .form-group {
     margin-bottom: 20px;
     text-align: left;
+    width: 100%;
 }
 
 .form-group label {
     display: block;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
+    font-weight: 500;
 }
 
 .form-group input {
@@ -67,8 +71,8 @@
     border: 1px solid #ccc;
     border-radius: 4px;
     width: 100%;
+    box-sizing: border-box;
     transition: all 0.3s ease;
-    cursor: pointer;
 }
 
 .form-group input:focus {
@@ -79,17 +83,26 @@
 .button-group {
     display: flex;
     justify-content: center;
-    gap: 10px;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 10px;
 }
 
-.save-button {
+.save-button,
+.cancel-button {
     padding: 10px 20px;
-    background: #2196f3;
-    color: #fff;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    font-size: 15px;
     transition: background 0.3s ease;
+    min-width: 120px;
+    box-sizing: border-box;
+}
+
+.save-button {
+    background: #2196f3;
+    color: #fff;
 }
 
 .save-button:hover {
@@ -97,15 +110,62 @@
 }
 
 .cancel-button {
-    padding: 10px 20px;
     background: #f44336;
     color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background 0.3s ease;
 }
 
 .cancel-button:hover {
     background: #e91e63;
+}
+
+/* RESPONSIF */
+@media (max-width: 768px) {
+    .edit-profile-container.with-sidebar {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .edit-profile-box {
+        margin: 20px 10px;
+        padding: 20px;
+    }
+
+    .edit-profile-title {
+        font-size: 20px;
+    }
+
+    .form-group input {
+        font-size: 14px;
+    }
+
+    .save-button,
+    .cancel-button {
+        font-size: 14px;
+        padding: 10px;
+        min-width: 100px;
+    }
+}
+
+@media (max-width: 480px) {
+    .edit-profile-box {
+        padding: 15px;
+    }
+
+    .edit-profile-title {
+        font-size: 18px;
+    }
+
+    .form-group label {
+        font-size: 14px;
+    }
+
+    .form-group input {
+        padding: 8px;
+    }
+
+    .save-button,
+    .cancel-button {
+        font-size: 13px;
+        padding: 8px;
+    }
 }

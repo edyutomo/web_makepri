@@ -4,23 +4,21 @@
     margin-left: 250px;
     text-align: center;
     min-height: 100vh;
-    padding: 20px;
     background-color: rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(10px);
     transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out;
     position: relative;
+    box-sizing: border-box;
 }
 
 .profile-container.with-sidebar {
     margin-left: 250px;
     width: calc(100% - 250px);
-    padding: 20px;
 }
 
 .profile-container.full-width {
     margin-left: 0;
     width: 100%;
-    padding: 20px;
 }
 
 .profile-container::before {
@@ -44,12 +42,19 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: 400px;
     margin: 0 auto;
+    transition: transform 0.3s ease;
+}
+
+.profile-box:hover {
+    transform: translateY(-2px);
 }
 
 /* Judul */
 .profile-title {
     margin-bottom: 20px;
     color: #2196f3;
+    font-size: 22px;
+    font-weight: bold;
 }
 
 /* Foto Profil */
@@ -70,19 +75,11 @@
     box-shadow: 0 0 10px rgba(41, 92, 134, 0.5);
 }
 
-/* Form Profil 
-.profile-form {
-  background: #ffffff;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  text-align: left;
-}*/
-
+/* Informasi dan Form */
 .form-group {
     margin-bottom: 20px;
     display: flex;
-    flex-direction: column; /* Set agar label tetap di atas input */
+    flex-direction: column;
     align-items: flex-start;
 }
 
@@ -101,15 +98,11 @@
     background: #ffffff;
     cursor: not-allowed;
     box-shadow: 0 0 10px rgba(20, 220, 255, 0.582);
+    transition: box-shadow 0.3s ease;
 }
 
-.form-group1 input:hover {
+.form-group input:hover {
     box-shadow: 0 0 10px rgba(41, 92, 134, 0.5);
-}
-
-/* Informasi Profil */
-.profile-info {
-    margin-bottom: 20px;
 }
 
 /* Tombol Edit Profil */
@@ -125,4 +118,38 @@
 
 .edit-profile-button:hover {
     background: #1976d2;
+}
+
+/* RESPONSIF */
+@media (max-width: 768px) {
+    .profile-container {
+        margin-left: 0;
+        width: 100%;
+        padding: 15px;
+    }
+
+    .profile-box {
+        width: 90%;
+        padding: 15px;
+    }
+
+    .profile-title {
+        font-size: 20px;
+    }
+
+    .form-group input {
+        width: 100%;
+        font-size: 14px;
+    }
+
+    .edit-profile-button {
+        width: 100%;
+        padding: 12px;
+        font-size: 15px;
+    }
+
+    .profile-image {
+        width: 130px;
+        height: 130px;
+    }
 }

@@ -10,21 +10,21 @@
     backdrop-filter: blur(10px);
     transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out;
     position: relative;
+    box-sizing: border-box;
 }
 
-/* Saat sidebar terbuka */
+/* Sidebar */
 .dashboard-container.with-sidebar {
     margin-left: 250px;
     width: calc(100% - 250px);
 }
 
-/* Saat sidebar tertutup */
 .dashboard-container.full-width {
     margin-left: 0;
     width: 100%;
 }
 
-/* Background logo transparan */
+/* Background logo */
 .dashboard-container::before {
     content: "";
     background: url("../assets/back.png") center no-repeat;
@@ -38,7 +38,7 @@
     z-index: -1;
 }
 
-/* Konten utama dashboard */
+/* Konten utama */
 .dashboard-content {
     padding: 20px;
     position: relative;
@@ -54,12 +54,17 @@
 }
 
 .financial-card {
+    flex: 1 1 calc(33.333% - 20px);
     padding: 20px;
     color: #fff;
     border-radius: 8px;
     text-align: center;
-    flex: 1 1 200px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s;
+}
+
+.financial-card:hover {
+    transform: translateY(-5px);
 }
 
 .financial-card.income {
@@ -79,4 +84,49 @@
     width: 100%;
     max-width: 700px;
     margin: 0 auto;
+}
+
+/* Responsif */
+@media (max-width: 1024px) {
+    .dashboard-container.with-sidebar {
+        margin-left: 200px;
+        width: calc(100% - 200px);
+    }
+
+    .financial-card {
+        flex: 1 1 calc(50% - 20px);
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard-container.with-sidebar {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .financial-card {
+        flex: 1 1 100%;
+    }
+
+    .chart-container {
+        padding: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .dashboard-container {
+        padding: 10px;
+    }
+
+    .dashboard-content {
+        padding: 10px;
+    }
+
+    .financial-summary {
+        gap: 10px;
+    }
+
+    .chart-container {
+        padding: 10px;
+    }
 }

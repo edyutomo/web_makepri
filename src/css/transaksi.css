@@ -1,3 +1,4 @@
+/* Container utama */
 .container-transaksi {
     min-height: 100vh;
     padding: 20px;
@@ -5,9 +6,9 @@
     backdrop-filter: blur(10px);
     transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out;
     position: relative;
+    box-sizing: border-box;
 }
 
-/* Tambahan untuk mendukung toggle sidebar */
 .container-transaksi.with-sidebar {
     margin-left: 250px;
     width: calc(100% - 250px);
@@ -31,27 +32,38 @@
     z-index: -1;
 }
 
+/* Kartu Transaksi */
 .card-transaksi {
     padding: 20px;
     background: #fff;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.card-transaksi:hover {
+    transform: translateY(-2px);
 }
 
 .transaksi-title {
     margin-bottom: 20px;
     color: #2196f3;
+    font-size: 20px;
+    font-weight: bold;
 }
 
+/* Tabel Transaksi */
 .transaksi-table {
     width: 100%;
     border-collapse: collapse;
+    margin-bottom: 20px;
 }
 
 .transaksi-table th,
 .transaksi-table td {
     padding: 10px;
     border: 1px solid #ddd;
+    text-align: left;
 }
 
 .table-header {
@@ -59,6 +71,7 @@
     color: #fff;
 }
 
+/* Tombol */
 .button-primary {
     margin-top: 20px;
     padding: 10px 20px;
@@ -83,21 +96,60 @@
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    transition: background 0.3s ease;
 }
 
+.button-secondary:hover {
+    background: #bbb;
+}
+
+/* Tombol Aksi List */
+.button-edit {
+    margin-left: 10px;
+    padding: 5px 10px;
+    background: #2196f3;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    transition: background 0.3s ease;
+}
+
+.button-edit:hover {
+    background: #1976d2;
+}
+
+.button-delete {
+    margin-left: 10px;
+    padding: 5px 10px;
+    background: #f44336;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    transition: background 0.3s ease;
+}
+
+.button-delete:hover {
+    background: #d32f2f;
+}
+
+/* Input dan Form */
 .input-full {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
     width: 100%;
     margin-bottom: 20px;
+    font-size: 15px;
 }
 
+/* Grouping Tombol */
 .button-group {
     display: flex;
+    flex-wrap: wrap;
     gap: 10px;
 }
 
+/* Daftar Kategori */
 .kategori-list {
     list-style: none;
     padding: 0;
@@ -109,28 +161,45 @@
     border-bottom: 1px solid #ccc;
 }
 
-.button-edit {
-    margin-left: 10px;
-    padding: 5px 10px;
-    background: #2196f3;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-}
-
-.button-delete {
-    margin-left: 10px;
-    padding: 5px 10px;
-    background: #f44336;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-}
-
+/* Margin Util */
 .mt-1 {
     margin-top: 10px;
 }
 
 .mt-2 {
     margin-top: 20px;
+}
+
+/* RESPONSIF */
+@media (max-width: 768px) {
+    .container-transaksi {
+        padding: 15px;
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .card-transaksi {
+        padding: 15px;
+    }
+
+    .transaksi-title {
+        font-size: 18px;
+    }
+
+    .input-full {
+        font-size: 14px;
+    }
+
+    .button-primary,
+    .button-secondary,
+    .button-edit,
+    .button-delete {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .button-group {
+        flex-direction: column;
+        gap: 10px;
+    }
 }

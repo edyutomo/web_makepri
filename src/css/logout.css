@@ -4,23 +4,21 @@
     margin-left: 250px;
     text-align: center;
     min-height: 100vh;
-    padding: 20px;
     background-color: rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(10px);
     transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out;
     position: relative;
+    box-sizing: border-box;
 }
 
 .logout-container.with-sidebar {
     margin-left: 250px;
     width: calc(100% - 250px);
-    padding: 20px;
 }
 
 .logout-container.full-width {
     margin-left: 0;
     width: 100%;
-    padding: 20px;
 }
 
 .logout-container::before {
@@ -41,37 +39,52 @@
     padding: 25px;
     background: #e0e0e0;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     width: 400px;
     margin: 0 auto;
+    transition: transform 0.3s ease;
+}
+
+.logout-box:hover {
+    transform: translateY(-3px);
 }
 
 /* Judul */
 .logout-title {
     margin-bottom: 20px;
     color: #20a3fa;
+    font-size: 22px;
+    font-weight: bold;
 }
 
 /* Teks */
 .logout-text {
     margin-bottom: 20px;
+    font-size: 16px;
+    color: #333;
 }
 
 /* Tombol */
 .button-group {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
     gap: 10px;
 }
 
-.logout-button {
+.logout-button,
+.cancel-button {
     padding: 10px 20px;
-    background: #3698f4;
-    color: #fff;
     border: none;
-    border-radius: 4px;
+    border-radius: 6px;
     cursor: pointer;
+    color: #fff;
+    font-weight: bold;
     transition: background 0.3s ease;
+}
+
+.logout-button {
+    background: #3698f4;
 }
 
 .logout-button:hover {
@@ -79,15 +92,43 @@
 }
 
 .cancel-button {
-    padding: 10px 20px;
     background: #2be1e7;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background 0.3s ease;
 }
 
 .cancel-button:hover {
     background: #249bfc;
+}
+
+/* RESPONSIF */
+@media (max-width: 768px) {
+    .logout-container {
+        margin-left: 0;
+        width: 100%;
+        padding: 15px;
+    }
+
+    .logout-box {
+        width: 90%;
+        padding: 20px;
+    }
+
+    .logout-title {
+        font-size: 20px;
+    }
+
+    .logout-text {
+        font-size: 14px;
+    }
+
+    .logout-button,
+    .cancel-button {
+        width: 100%;
+        padding: 12px;
+        font-size: 15px;
+    }
+
+    .button-group {
+        flex-direction: column;
+        gap: 10px;
+    }
 }

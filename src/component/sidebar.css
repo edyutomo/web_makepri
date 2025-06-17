@@ -1,4 +1,4 @@
-/* Sidebar */
+/* Sidebar Utama */
 .sidebar {
     height: 100vh;
     width: 250px;
@@ -8,52 +8,81 @@
     position: fixed;
     top: 0;
     left: 0;
-    transition: left 0.3s ease-in-out;
+    z-index: 1000;
+    transition: left 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
 }
 
+/* Sidebar Tertutup */
 .sidebar.closed {
     left: -250px;
 }
 
+/* Judul Sidebar */
 .sidebar-title {
     color: #fff;
     text-align: center;
     margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: bold;
 }
 
-/* Menu */
+/* Daftar Menu */
 .sidebar-menu {
     list-style-type: none;
     padding: 0;
-    margin-top: 30px;
+    margin: 30px 0;
 }
 
+/* Link Menu */
 .sidebar-link {
     display: block;
     color: #fff;
     text-decoration: none;
     padding: 12px 20px;
     border-bottom: 1px solid #2980b9;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s ease, padding-left 0.3s ease;
+    font-size: 16px;
 }
 
 .sidebar-link:hover {
     background-color: #2980b9;
+    padding-left: 30px;
 }
 
-/* Tombol Toggle */
+/* Tombol Toggle Sidebar */
 .sidebar-toggle {
     position: fixed;
-    top: 10px;
-    left: 10px;
-    z-index: 1;
+    top: 15px;
+    left: 15px;
+    z-index: 1100;
     background-color: #3498db;
     color: #fff;
     border: none;
-    padding: 10px;
+    border-radius: 4px;
+    padding: 10px 12px;
+    font-size: 16px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .sidebar-toggle:hover {
     background-color: #2980b9;
+}
+
+/* RESPONSIF */
+@media (max-width: 768px) {
+    .sidebar {
+        left: -250px;
+    }
+
+    .sidebar.open {
+        left: 0;
+    }
+
+    .sidebar-toggle {
+        top: 10px;
+        left: 10px;
+    }
 }

@@ -5,6 +5,7 @@
     background-color: rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(10px);
     transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out;
+    box-sizing: border-box;
 }
 
 /* Sidebar terbuka */
@@ -34,10 +35,13 @@
 
 /* Kotak Tambah Dompet */
 .dompet-tambah-box {
-    padding: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 30px;
     background: #d8d8d8;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 155, 160, 0.616);
+    box-sizing: border-box;
 }
 
 /* Judul */
@@ -45,37 +49,92 @@
     margin-bottom: 20px;
     color: #0081d1;
     text-align: center;
+    font-size: 24px;
 }
 
 /* Form */
 .form-group {
     margin-bottom: 20px;
+    width: 100%;
 }
 
 .form-group label {
     display: block;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
+    font-weight: 500;
 }
 
 .form-group input {
     padding: 10px;
     border: 1px solid #4adbff;
     border-radius: 4px;
-    width: 95%;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 /* Tombol Simpan */
 .dompet-tambah-button {
-    padding: 10px 20px;
+    padding: 12px 20px;
     background: #0081d1;
     color: #ffffff;
-    border: rgb(0, 0, 0);
+    border: none;
     border-radius: 6px;
     cursor: pointer;
     transition: background 0.3s ease;
     text-align: center;
+    font-size: 16px;
+    display: block;
+    width: 100%;
 }
 
 .dompet-tambah-button:hover {
     background: #50b0ff;
+}
+
+/* Responsif */
+@media (max-width: 768px) {
+    .dompet-tambah-container.with-sidebar {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .dompet-tambah-box {
+        padding: 20px;
+        margin: 20px 10px;
+    }
+
+    .dompet-tambah-title {
+        font-size: 20px;
+    }
+
+    .form-group input {
+        font-size: 14px;
+    }
+
+    .dompet-tambah-button {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .dompet-tambah-box {
+        padding: 15px;
+    }
+
+    .dompet-tambah-title {
+        font-size: 18px;
+    }
+
+    .form-group label {
+        font-size: 14px;
+    }
+
+    .form-group input {
+        padding: 8px;
+    }
+
+    .dompet-tambah-button {
+        font-size: 14px;
+        padding: 10px 16px;
+    }
 }
